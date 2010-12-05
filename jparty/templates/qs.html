@@ -1,12 +1,11 @@
-<html>
-    <body>
-		{% if questions %}
-            <h1>{{categoryName}}</h1>
-			<ul>
-			{% for q in questions %}
-				<li><a href="/qa/{{q.id}}/">{{q.value}}</li>
-			{% endfor %}
-			</ul>
-		{% endif %}
-    </body>
-</html>
+{%extends base.html%}
+{% block body %}
+    {% if questions %}
+        <h1>{{categoryName}}</h1>
+        <ul>
+        {% for q in questions %}
+            <li><a href="/qa/{{q.id}}/">{{q.value}}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
