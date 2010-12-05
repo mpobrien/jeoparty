@@ -1,0 +1,43 @@
+<project name="jparty" default="build" basedir=".">
+    <target name="init">
+        <property name="src.dir" value="src"/>
+        <property name="lib.dir" value="lib"/>
+        <property name="classes.dir" value="WebContent/WEB-INF/classes"/>
+        <property name="conf.dir" value="conf"/>
+        <property name="dist.dir" value="dist"/>
+    </target>
+    <target name="clean" depends="init">
+        <deltree dir="${classes.dir}"/>
+        <deltree dir="dist"/>
+    </target>
+    <target name="build" depends="init, clean">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="dist"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true">
+            <classpath>
+                <fileset dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+    <target name="compile" depends="clean, build"> </target>
+    <target name="runserver">
+        <exec executable="./admin.sh">
+            <arg value="runserver"/>
+        </exec>
+    </target>
+
+    <!--target name="runserver">
+        <java classname="com.mob.bootstrap.Jetty">
+             <classpath>
+                <fileset dir="${lib.dir}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${classes.dir}"/>
+                <pathelement path="${conf.dir}"/>
+             </classpath>
+            </java>
+    </target-->
+
+</project>

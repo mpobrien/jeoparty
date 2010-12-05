@@ -1,0 +1,30 @@
+<web-app id="WebApp_9" version="2.4" 
+    xmlns="http://java.sun.com/xml/ns/j2ee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>Application name</display-name>
+    <description>description</description> 
+
+
+    <session-config>
+      <session-timeout>30</session-timeout> 
+    </session-config>
+
+    <filter>
+        <filter-name>guiceFilter</filter-name>
+        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+    </filter>
+
+	<listener>
+  		<listener-class>jparty.modules.MyServletContextListener</listener-class>
+	</listener>
+          
+    <filter-mapping>
+        <filter-name>guiceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- ... -->
+
+</web-app>

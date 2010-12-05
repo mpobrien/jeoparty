@@ -1,0 +1,23 @@
+<html>
+    <script type="text/javascript" src="/static/jquery.js"></script>
+    <script type="text/javascript">
+        function flip(){
+            $('#question').slideToggle('fast');
+            $('#answer').slideToggle('fast');
+        }
+        $(document).ready(
+            function(){
+                $('.flipper').click( flip )
+            }
+        )
+    </script>
+    <body>
+        <div id="question">
+            {{question}}
+        </div>
+        <div id="answer" style="display:none">
+            {{answer}}
+        </div>
+        <input type="button" class="flipper" value="Flip..."/>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+#export CLASSPATH=./lib/freemarker.jar:./lib/gdata-base-1.0.jar:./lib/google-collect-1.0-rc1.jar:./lib/guice-1.0.jar:./lib/jetty-6.1.3.jar:./lib/jetty-util-6.1.3.jar:./lib/servlet-api-2.5.jar:/usr/share/java/jython-2.5.1.jar:./WebContent/WEB-INF/classes:./lib/freemarker.jar:./lib/gdata-base-1.0.jar:./lib/orm.jar:./lib/jdbc-redis.jar:./lib/forms.jar:./lib/web.jar
+export CLASSPATH=./WebContent/WEB-INF/classes/*:./lib/*:/usr/share/java/jython-2.5.1.jar:./WebContent/WEB-INF/classes
+
+echo $CLASSPATH
+
+
+LOG4J_OPTS="-Dlog4j.configuration=log4j.properties" # to change default log level add -Dlog4j.info
+
+# get the full path to the jython script
+prg=`pwd`/$0
+prgdir=`dirname $prg`
+
+# set jython's cache directory to a hidden dir in our current dir
+cachedir=/tmp/.cachedir
+cacheskip=false
+
+# setup readline options (if libreadline-java available)
+# to use this you'll need to "emerge libreadline-java"
+if [ -f /usr/share/java/libreadline-java.jar ];
+then
+CLASSPATH=$CLASSPATH:/usr/share/java/libreadline-java.jar
+export LD_LIBRARY_PATH=/usr/lib64/libreadline-java:$LD_LIBRARY_PATH
+PYOPTS="-Dpython.console=org.python.util.ReadlineConsole -Dpython.console.readlinelib=GnuReadline"
+fi
+
+pypath=/home/mike/jython2.5.1/Lib
+#pypath=/usr/lib/python2.5:/usr/lib/python2.5/plat-linux2:/usr/lib/python2.5/lib-tk:/usr/lib/python2.5/lib-dynload:/usr/local/lib/python2.5/site-packages:/usr/lib/python2.5/site-packages:/usr/lib/python2.5/site-packages/Numeric:/usr/lib/python2.5/site-packages/PIL:/usr/lib/python2.5/site-packages/gst-0.10:/var/lib/python-support/python2.5:/usr/lib/python2.5/site-packages/gtk-2.0
+
+
+# SSL keystore options
+SSL_OPTS="-Djavax.net.ssl.trustStore=/usr/local/meetup_api/conf/localdev/ssl/devcacerts"
+# exec, and also allow python access to private vars
+exec java -cp $CLASSPATH $SSL_OPTS $LOG4J_OPTS -D"python.security.respectJavaAccessibility=false" -D"python.cachedir=$cachedir"  -D"python.cachedir.skip=$cacheskip" -D"python.path=$pypath" $PYOPTS org.python.util.jython "$@"     

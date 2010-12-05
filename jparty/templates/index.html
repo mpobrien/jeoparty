@@ -1,0 +1,12 @@
+<html>
+    <body>
+		{% if categories %}
+			<ul>
+			{% for c in categories %}
+				<li><a href="/q/{{c.id}}/">{{c.name}}</a></li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+		<a href="/{{nextPage}}/">more</a>
+    </body>
+</html>
