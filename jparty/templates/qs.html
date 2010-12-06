@@ -2,7 +2,7 @@
 {% block body %}
     {% if questions %}
         <h1>{{categoryName}}</h1>
-        <ul>
+        <ul id="qs">
         {% for q in questions %}
             <li><a href="/qa/{{q.id}}/">{{q.value}}</a></li>
         {% endfor %}

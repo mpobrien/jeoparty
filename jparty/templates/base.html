@@ -5,6 +5,71 @@
         <meta name="viewport" content="width=device-width, user-scalable=no" /> 
         {% block head %}
         {% endblock %}
+        <style>
+            body{
+                font-family:Verdana;
+            }
+
+            #more{
+                font-weight:bold;
+                text-decoration:none;
+            }
+
+            ul{
+                padding:0px;
+                margin:0px;
+                margin-bottom:20px;
+                text-align:center;
+            }
+            li{
+                list-style:none;
+                padding:8px;
+            }
+
+            #qs > li{
+                padding:18px;
+            }
+
+            #qs > li > a{
+                padding:15px;
+            }
+
+            li> a{
+                -moz-border-radius: 5px;
+                -webkit-radius: 5px;
+                border-radius: 5px;
+                padding:5px;
+                height:80px;
+                width:100%;
+                border: 1px solid #D3DE8C;
+                background: #e1e6b5; /* for non-css3 browsers */
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e6b5', endColorstr='#D3DE8C'); /* for IE */
+                background: -webkit-gradient(linear, left top, left bottom, from(#e1e6b5), to(#D3DE8C)); /* for webkit browsers */
+                background: -moz-linear-gradient(top,  #e1e6b5,  #D3DE8C); /* for firefox 3.6+ */
+                text-shadow: 1px 0px 1px #000;
+            }
+            li > a:link {
+                color:#5B8378;
+                padding:5px;
+                height:80px;
+                width:100%;
+                border: 1px solid #D3DE8C;
+                background: #e1e6b5; /* for non-css3 browsers */
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e6b5', endColorstr='#D3DE8C'); /* for IE */
+                background: -webkit-gradient(linear, left top, left bottom, from(#e1e6b5), to(#D3DE8C)); /* for webkit browsers */
+                background: -moz-linear-gradient(top,  #e1e6b5,  #D3DE8C); /* for firefox 3.6+ */
+                text-decoration:none;
+            }    /* unvisited link */ 
+            li > a:visited {
+                text-decoration:none;
+                color:#888;
+            }  /* visited link */
+            li > a:hover {
+                text-decoration:none;
+                color:#555;
+                text-decoration:none;
+            }  /* mouse over link */
+            li > a:active {color:#0000FF; text-decoration:none; }  /* selected link */ </style>
     </head> 
     <body> 
         {% block body %}
