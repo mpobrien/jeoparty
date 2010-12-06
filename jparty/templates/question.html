@@ -3,9 +3,10 @@
     <script type="text/javascript" src="/static/jquery.js"></script>
     <script type="text/javascript">
         function flip(){
-            $('#question').slideToggle('fast');
-            $('#answer').slideToggle('fast');
+            $('#question').toggle();
+            $('#answer').toggle();
         }
+
         $(document).ready(
             function(){
                 $('.flipper').click( flip )
@@ -14,11 +15,31 @@
     </script>
 {% endblock %}
 {% block body %}
+<div id="container">
     <div id="question">
         {{question}}
     </div>
     <div id="answer" style="display:none">
         {{answer}}
     </div>
-    <input type="button" class="flipper" value="Flip..."/>
+</div>
+    <input type="button" id="flipper" class="flipper" value="Flip"/>
+    <style>
+        #container{
+            height:75%;
+            text-align:center;
+        }
+        #question, #answer{
+            top:50%;
+            text-align:center;
+            height:100%;
+            position:relative;
+        }
+        #flipper{
+            width:100%;
+            bottom:0px;
+            position:absolute;
+            height:20%;
+        }
+    </style>
 {% endblock %}
