@@ -12,10 +12,12 @@ import org.bson.types.*;
 public class JpartyDAO{
 
 	private final Mongo mongo;
+	private long categoryCount = 0;
 
 	@Inject
 	public JpartyDAO(Mongo mongo){//{{{
 		this.mongo = mongo;
+		this.categoryCount  = getCategories().getCount();
 	}//}}}
 
 	public DBCollection getQuestions(){//{{{
@@ -72,5 +74,7 @@ public class JpartyDAO{
         }
         return result;
     }//}}}
+
+	public Long getCategoryCount() { return categoryCount; }
 
 }

@@ -16,15 +16,24 @@ public class QuestionController extends Controller{
 	JpartyDAO jpd;
 	
 	String questionId;
+	boolean json = false;
+
+	public void preprocess(Visit visit){
+		this.json = visit.getStringSafe("json").equals("1");
+	}
 
     @Override
-    public WebResponse get(HttpServletRequest req, HttpServletResponse res){
+    public WebResponse get(Visit visit){
         this.questionId = this.args.get(0);
         Question q = jpd.getQuestionById(this.questionId);
 		HashMap context = new HashMap();
 		context.put("question", q.getQuestion());
 		context.put("answer", q.getAnswer());
-		return responses.render("question.html", context);
+		if( this.json ){
+			return responses.json(q);
+		}else{
+			return responses.render("question.html", context);
+		}
     }
 
 }

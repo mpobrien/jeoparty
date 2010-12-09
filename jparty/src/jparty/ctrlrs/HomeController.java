@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import com.google.common.collect.*;
 import com.google.inject.*;
+import com.google.gson.*;
 
-@At("^/(\\d+)?/?$")
+@At("^/?$")
 public class HomeController extends Controller{
 	Logger log = Logger.getLogger( HomeController.class );
 
@@ -16,21 +17,29 @@ public class HomeController extends Controller{
 	JpartyDAO jpd;
 	
 	Integer pageNum;
+	boolean json=false;
+
+	public void preprocess(Visit visit){
+		this.json = visit.getStringSafe("json").equals("1");
+	}
 
     @Override
-    public WebResponse get(HttpServletRequest req, HttpServletResponse res){
-		if( this.args.get(0) != null ){
-			this.pageNum = new Integer(this.args.get(0));
-		}else{
-			this.pageNum = 0;
-		}
-
-		List<Category> categories = jpd.getCategories(this.pageNum*10, 10);
+    public WebResponse get(Visit visit){
+		List<Category> categories = getRandomCategorySet();
 		HashMap context = new HashMap();
-		context.put("nextPage", this.pageNum + 1);
 		context.put("categories", categories);
-
-		return responses.render("index.html", context);
+		if( json ){
+			return responses.json(categories);
+		}else{
+			return responses.render("index.html", context);
+		}
     }
 
+	private List<Category> getRandomCategorySet(){
+		Long numCategories = jpd.getCategoryCount();
+		Random randy = new Random();
+		this.pageNum = randy.nextInt(numCategories.intValue()/10);
+		List<Category> categories = jpd.getCategories(this.pageNum*10, 10);
+		return categories;
+	}
 }

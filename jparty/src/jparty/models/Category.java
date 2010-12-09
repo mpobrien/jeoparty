@@ -16,13 +16,16 @@ public class Category{
     }//}}}
 
     ObjectId id;
+	String idStr;
     String name;
 //     String question; Integer value;
     
     public ObjectId getId() { return id; }
-    public void setId(ObjectId id) { this.id = id; }
+    public void setId(ObjectId id) { this.id = id; this.idStr = this.id.toString(); }
     
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+	public String getIdStr() { return this.id.toString(); }
 
 }

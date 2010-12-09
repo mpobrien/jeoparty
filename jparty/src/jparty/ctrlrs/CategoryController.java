@@ -16,16 +16,25 @@ public class CategoryController extends Controller{
 	JpartyDAO jpd;
 	
 	String categoryId;
+	boolean json;
+
+	public void preprocess(Visit visit){
+		this.json = visit.getStringSafe("json").equals("1");
+	}
 
     @Override
-    public WebResponse get(HttpServletRequest req, HttpServletResponse res){
+    public WebResponse get(Visit visit){
         this.categoryId = this.args.get(0);
 		Category category = jpd.getCategoryById(this.categoryId);
 		List<Question> questions = jpd.getByCategoryId(this.categoryId);
 		HashMap context = new HashMap();
 		context.put("questions", questions);
 		context.put("categoryName", category.getName());
-		return responses.render("qs.html", context);
+		if( json ){
+			return responses.json(questions);
+		}else{
+			return responses.render("qs.html", context);
+		}
     }
 
 }
