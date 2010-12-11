@@ -2,9 +2,8 @@
 from BeautifulSoup import BeautifulSoup, NavigableString, BeautifulStoneSoup
 from htmlentitydefs import name2codepoint as n2cp
 import HTMLParser
-import MySQLdb
+from pymongo import Connection
 import os, sys
-import re
 import re
 import urllib
 import urllib2
