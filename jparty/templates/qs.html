@@ -1,6 +1,13 @@
 {%extends base.html%}
 {% block body %}
     {% if questions %}
+    <script type="text/javascript">
+        var questions = [
+        {% for q in questions %}
+{ question:"{{q.question|escapeJs}}", answer:"{{q.answer|escapeJs}}"},
+        {% endfor %}
+        ]
+    </script>
         <h1>{{categoryName}}</h1>
         <ul id="qs">
         {% for q in questions %}

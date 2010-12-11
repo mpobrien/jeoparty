@@ -33,7 +33,7 @@ public class CategoryController extends Controller{
 		if( json ){
 			return responses.json(questions);
 		}else{
-			return responses.render("qs.html", context);
+			return responses.render("qs2.html", context);
 		}
     }
 
