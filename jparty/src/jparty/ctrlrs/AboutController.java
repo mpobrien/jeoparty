@@ -12,6 +12,7 @@ import com.google.gson.*;
 @At("^/about/?$")
 public class AboutController extends Controller{
 
+    @Inject
     public AboutController(Visit visit){
         super(visit);
     }

@@ -20,6 +20,7 @@ public class CategoryController extends Controller{
 	String categoryId;
 	boolean json;
 
+    @Inject
     public CategoryController(Visit visit){
         super(visit);
     }

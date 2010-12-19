@@ -19,6 +19,7 @@ public class QuestionController extends Controller{
 	
 	String questionId;
  
+    @Inject
     public QuestionController(Visit visit){
         super(visit);
     }
