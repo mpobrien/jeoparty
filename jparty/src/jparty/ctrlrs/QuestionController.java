@@ -14,25 +14,27 @@ public class QuestionController extends Controller{
 
 	@Inject
 	JpartyDAO jpd;
+    @Inject
+    MobileDetector mobileDetect;
 	
 	String questionId;
-	boolean json = false;
-
-	public void preprocess(Visit visit){
-		this.json = visit.getStringSafe("json").equals("1");
-	}
+ 
+    public QuestionController(Visit visit){
+        super(visit);
+    }
 
     @Override
-    public WebResponse get(Visit visit){
+    public WebResponse get(){
         this.questionId = this.args.get(0);
         Question q = jpd.getQuestionById(this.questionId);
 		HashMap context = new HashMap();
 		context.put("question", q.getQuestion());
 		context.put("answer", q.getAnswer());
-		if( this.json ){
+		if( visit.getStringSafe("json").equals("1") ){
 			return responses.json(q);
 		}else{
-			return responses.render("question.html", context);
+            String prefix = mobileDetect.isMobile() ? "mobile/" : "";
+			return responses.render(prefix + "question.html", context);
 		}
     }
 

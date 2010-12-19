@@ -15,23 +15,28 @@ public class HomeController extends Controller{
 
 	@Inject
 	JpartyDAO jpd;
+    @Inject
+    MobileDetector mobileDetect;
 	
 	Integer pageNum;
 	boolean json=false;
-
-	public void preprocess(Visit visit){
-		this.json = visit.getStringSafe("json").equals("1");
-	}
+ 
+    @Inject
+    public HomeController(Visit visit){
+        super(visit);
+    }
 
     @Override
-    public WebResponse get(Visit visit){
+    public WebResponse get(){
 		List<Category> categories = getRandomCategorySet();
 		HashMap context = new HashMap();
 		context.put("categories", categories);
-		if( json ){
+		if( visit.getStringSafe("json").equals("1") ){
 			return responses.json(categories);
 		}else{
-			return responses.render("index.html", context);
+            String prefix = mobileDetect.isMobile() ? "mobile/" : "";
+            log.error(prefix);
+			return responses.render(prefix + "index.html", context);
 		}
     }
 

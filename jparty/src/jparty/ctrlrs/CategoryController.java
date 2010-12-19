@@ -14,26 +14,28 @@ public class CategoryController extends Controller{
 
 	@Inject
 	JpartyDAO jpd;
+    @Inject
+    MobileDetector mobileDetect;
 	
 	String categoryId;
 	boolean json;
 
-	public void preprocess(Visit visit){
-		this.json = visit.getStringSafe("json").equals("1");
-	}
+    public CategoryController(Visit visit){
+        super(visit);
+    }
 
-    @Override
-    public WebResponse get(Visit visit){
+    public WebResponse get(){
         this.categoryId = this.args.get(0);
 		Category category = jpd.getCategoryById(this.categoryId);
 		List<Question> questions = jpd.getByCategoryId(this.categoryId);
 		HashMap context = new HashMap();
 		context.put("questions", questions);
 		context.put("categoryName", category.getName());
-		if( json ){
+		if( visit.getStringSafe("json").equals("1") ){
 			return responses.json(questions);
 		}else{
-			return responses.render("qs2.html", context);
+            String prefix = mobileDetect.isMobile() ? "mobile/" : "";
+			return responses.render(prefix + "qs2.html", context);
 		}
     }
 
