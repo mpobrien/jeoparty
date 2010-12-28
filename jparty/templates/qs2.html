@@ -2,15 +2,10 @@
 {% block body %}
     {% if questions %}
     <style>
-        #flipper{
-            width:90%;
-            bottom:0px;
-            position:absolute;
-            height:20%;
-        }
-        #qcontainer, #question, #answer{
-            text-align:center;
-        }
+      #flipper{ display:none; background-color: #ddd; border:1px solid black;border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px;clear:both; position:absolute: bottom:0px; padding:30px;}
+      #qcontainer{min-height:150px; padding-top:30px;}
+      .navbuttons{border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; border: 1px solid #e1e6b5;}
+      #newcat{border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; border: 1px solid #black; background-color: #ccc;}
     </style>
     <script type="text/javascript" src="/static/jquery.js"></script>
     <script type="text/javascript">
@@ -25,6 +20,7 @@
             $('#question').toggle();
             $('#answer').toggle();
             showingAnswer = !showingAnswer;
+            $('#flipper').text(showingAnswer ? "Show Question" : "Show Answer");
             if( showingAnswer ){
                 if( curQuestionNum > 0 ) $('#prev').show(); 
                 else $('#prev').hide()
@@ -40,8 +36,10 @@
             function(){
                 $('#flipper').click( flip )
                 $('#catslink').hide()
+                window.scrollTo(0,1);
             }
         )
+
         function showcats(){
             $('#qcontainer').hide();
             $('#qs').show();
@@ -54,8 +52,10 @@
         function prevq(){ doQuestion(curQuestionNum-1); }
 
         function doQuestion(num){
+            $('#flipper').text('Show Answer');
             showingAnswer = false
             curQuestionNum = num;
+            $('#questions').hide();
             $('#qcontainer').show();
             var q = questions[num]
             $('#qs').hide();
@@ -68,27 +68,26 @@
         }
     </script>
 
-    <div>
-        <div style="text-align:center">
-            <a id="catslink" style="display:inline" href="javascript:showcats()">&larr;all</a> &nbsp; <h1 style="display:inline">{{categoryName}}</h1> 
-        <div style="float:right; text-align:right"><a href="/">new<br/>category&hellip;</a></div>
+    <div id="header">
+        <span id="topcenter">{{categoryName}}</span>
+        <a href="/" id="newcat"><div id="topright">new<br/> category... <img src="/static/reload.png"/></div></a>
     </div>
     
-    </div>
-        <ul id="qs">
-        {% for q in questions %}
-        <li><a href="javascript:doQuestion({{$loop.count}})">{{q.value}}</a></li>
-        {% endfor %}
-        </ul>
-        <div id="wrapper">
-            <div id="qcontainer" style="display:none;">
-                <div id="question" style="padding-top:50px;"></div>
-                <div id="answer" style="padding-top:50px;display:none"></div>
-                <div style="float:left"> <a style="display:none" id="prev" href="javascript:prevq()">&larr; Prev</a></div>
-                <div style="float:right"> <a style="display:none" id="next" href="javascript:nextq()">Next &rarr;</a></div>
-            </div>
-            <input type="button" id="flipper" class="flipper" value="Flip" style="display:none"/>
+    <div id="content">
+        <div id="questions">
+          {% for q in questions %}
+          <a href="javascript:doQuestion({{$loop.count}})"><div class="question">{{q.value}}</div></a>
+          {% endfor %}
         </div>
-
+        <div id="qcontainer" style="display:none">
+          <div id="question"></div>
+          <div id="answer"></div>
+          <a style="display:none" id="prev" href="javascript:prevq()"><div class="navbuttons" style="float:left">&larr; Previous<br/>Question</div></a>
+          <a style="display:none" id="next" href="javascript:nextq()"><div class="navbuttons" style="float:right">Next<br/>Question&rarr;</div></a>
+        </div>
+        <div style="width:100%; margin-left:auto; margin-right:auto;">
+        <div id="flipper">Show Answer</div>
+        </div>
+    </div>
     {% endif %}
 {% endblock %}
