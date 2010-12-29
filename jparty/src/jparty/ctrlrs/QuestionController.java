@@ -26,17 +26,18 @@ public class QuestionController extends Controller{
 
     @Override
     public WebResponse get(){
-        this.questionId = this.args.get(0);
-        Question q = jpd.getQuestionById(this.questionId);
-		HashMap context = new HashMap();
-		context.put("question", q.getQuestion());
-		context.put("answer", q.getAnswer());
-		if( visit.getStringSafe("json").equals("1") ){
-			return responses.json(q);
-		}else{
-            String prefix = mobileDetect.isMobile() ? "mobile/" : "";
-			return responses.render(prefix + "question.html", context);
-		}
+        return null;
+        //this.questionId = this.args.get(0);
+        //Question q = jpd.getQuestionById(this.questionId);
+		//HashMap context = new HashMap();
+		//context.put("question", q.getQuestion());
+		//context.put("answer", q.getAnswer());
+		//if( visit.getStringSafe("json").equals("1") ){
+			//return responses.json(q);
+		//}else{
+            //String prefix = mobileDetect.isMobile() ? "mobile/" : "";
+			//return responses.render(prefix + "question.html", context);
+		//}
     }
 
 }

@@ -27,17 +27,17 @@ public class CategoryController extends Controller{
 
     public WebResponse get(){
         this.categoryId = this.args.get(0);
-		Category category = jpd.getCategoryById(this.categoryId);
-		List<Question> questions = jpd.getByCategoryId(this.categoryId);
-		HashMap context = new HashMap();
-		context.put("questions", questions);
-		context.put("categoryName", category.getName());
-		if( visit.getStringSafe("json").equals("1") ){
-			return responses.json(questions);
-		}else{
+        Category category = jpd.getCategoryById(this.categoryId);
+        List<Category.Question> questions = category.getQuestions();
+        HashMap context = new HashMap();
+        context.put("questions", questions);
+        context.put("categoryName", category.getName());
+        if( visit.getStringSafe("json").equals("1") ){
+            return responses.json(questions);
+        }else{
             String prefix = mobileDetect.isMobile() ? "mobile/" : "";
-			return responses.render(prefix + "qs2.html", context);
-		}
+            return responses.render(prefix + "qs2.html", context);
+        }
     }
 
 }
