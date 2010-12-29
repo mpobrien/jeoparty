@@ -1,7 +1,4 @@
 package jparty.models;
-import com.google.code.morphia.*;
-import com.google.code.morphia.annotations.*;
-import com.google.code.morphia.Morphia;
 import com.google.inject.*;
 import com.mongodb.*;
 import java.util.*;
@@ -41,10 +38,10 @@ public class JpartyDAO{
 		fields.put("name",1);
 		fields.put("_id", 1);
         DBCollection cats = mongo.getDB("jparty").getCollection("categories");
-        DBCursor cur = cats.find(new BasicDBObject(), fields);//, start, limit);
+        DBCursor cur = cats.find(new BasicDBObject(), fields).skip(start).limit(limit);
 		int count =0;
         while(cur.hasNext()) {
-            DBObject next = cur.next();
+            DBObject next = (DBObject)cur.next();
             result.add( new Category(next));
 			count++;
 			if( count >= limit) return result;
