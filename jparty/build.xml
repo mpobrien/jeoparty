@@ -28,6 +28,12 @@
         </exec>
     </target>
 
+    <target name="models">
+        <exec executable="./admin.sh">
+            <arg value="models"/>
+        </exec>
+    </target>
+
     <!--target name="runserver">
         <java classname="com.mob.bootstrap.Jetty">
              <classpath>

@@ -1,0 +1,15 @@
+data Category2{
+
+    data Question{
+        bool isDouble;
+        int32 value;
+        list<string> urls;
+        string question;
+        string answer;
+    }
+
+    string name;
+    int32 gameId;
+    list<Question> questions;
+
+}
