@@ -3,73 +3,33 @@
         <title>jparty</title> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
         <meta name="viewport" content="width=device-width, user-scalable=no" /> 
+        <style type="text/css">
+            body{margin:0px; font-family:Trebuchet MS}
+            #header{ text-align:center;height: 30px;padding:8px; }
+            #topleft{ float:left; }
+            #topright{ float:right; }
+            #content{ clear: both; text-align:center; top:50px;  }
+            #topcenter{ font-weight:bold; }
+            a:link{ text-decoration:none; color:black; font-weight:bold}
+            a:hover{ text-decoration:none; font-weight:bold; color:black; }
+            a:visited{ text-decoration:none; font-weight:none; color:black; }
+            .question, .category{ border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; border: 1px solid #91c926; margin:10px; padding:10px; }
+            .question, .category{
+                background-color: #91c926;
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#91c926;', endColorstr='#D3DE8C'); /* for IE */
+                background: -webkit-gradient(linear, left top, left bottom, from(#e1e6b5), to(#D3DE8C)); /* for webkit browsers */
+                background: -moz-linear-gradient(top,  #e1e6b5,  #D3DE8C); /* for firefox 3.6+ */
+            }
+            .navButtons{
+                padding: 15px;
+                background-color: #8fa68e;
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f2c0', endColorstr='#9fa68e'); /* for IE */
+                background: -webkit-gradient(linear, left top, left bottom, from(#f1f2c0), to(#9fa68e)); /* for webkit browsers */
+                background: -moz-linear-gradient(top,  #f1f2c0,  #9fa68E); /* for firefox 3.6+ */
+            }
+        </style>
         {% block head %}
         {% endblock %}
-        <style>
-            body{
-                font-family:Trebuchet MS;
-            }
-
-            #more{
-                font-weight:bold;
-                text-decoration:none;
-            }
-
-            ul{
-                padding:0px;
-                margin:0px;
-                margin-bottom:20px;
-                text-align:center;
-            }
-            li{
-                list-style:none;
-                padding:8px;
-            }
-
-            #qs > li{
-                padding:18px;
-            }
-
-            #qs > li > a{
-                padding:15px;
-            }
-
-            li> a{
-                -moz-border-radius: 5px;
-                -webkit-radius: 5px;
-                border-radius: 5px;
-                padding:5px;
-                height:80px;
-                width:100%;
-                border: 1px solid #D3DE8C;
-                background: #e1e6b5; /* for non-css3 browsers */
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e6b5', endColorstr='#D3DE8C'); /* for IE */
-                background: -webkit-gradient(linear, left top, left bottom, from(#e1e6b5), to(#D3DE8C)); /* for webkit browsers */
-                background: -moz-linear-gradient(top,  #e1e6b5,  #D3DE8C); /* for firefox 3.6+ */
-                font-weight:bold;
-            }
-            li > a:link {
-                color:#5B8378;
-                padding:5px;
-                height:80px;
-                width:100%;
-                border: 1px solid #D3DE8C;
-                background: #e1e6b5; /* for non-css3 browsers */
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e6b5', endColorstr='#D3DE8C'); /* for IE */
-                background: -webkit-gradient(linear, left top, left bottom, from(#e1e6b5), to(#D3DE8C)); /* for webkit browsers */
-                background: -moz-linear-gradient(top,  #e1e6b5,  #D3DE8C); /* for firefox 3.6+ */
-                text-decoration:none;
-            }    /* unvisited link */ 
-            li > a:visited {
-                text-decoration:none;
-                color:#888;
-            }  /* visited link */
-            li > a:hover {
-                text-decoration:none;
-                color:#555;
-                text-decoration:none;
-            }  /* mouse over link */
-            li > a:active {color:#0000FF; text-decoration:none; }  /* selected link */ </style>
     </head> 
     <body> 
         {% block body %}
