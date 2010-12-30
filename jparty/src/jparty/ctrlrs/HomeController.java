@@ -28,6 +28,8 @@ public class HomeController extends Controller{
 
     @Override
     public WebResponse get(){
+        Date now = new Date();
+        log.info(now.toString() + " accessed / from " + visit.getRequest().getRemoteAddr());
 		List<Category> categories = getRandomCategorySet();
 		HashMap context = new HashMap();
 		context.put("categories", categories);

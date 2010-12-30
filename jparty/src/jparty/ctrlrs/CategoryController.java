@@ -28,6 +28,9 @@ public class CategoryController extends Controller{
     public WebResponse get(){
         this.categoryId = this.args.get(0);
         Category category = jpd.getCategoryById(this.categoryId);
+        if( category == null ){
+            return new StringWebResponse("Not found. :(");
+        }
         List<Category.Question> questions = category.getQuestions();
         HashMap context = new HashMap();
         context.put("questions", questions);
