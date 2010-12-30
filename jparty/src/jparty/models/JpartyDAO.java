@@ -38,7 +38,11 @@ public class JpartyDAO{
 		fields.put("name",1);
 		fields.put("_id", 1);
         DBCollection cats = mongo.getDB("jparty").getCollection("categories");
-        DBCursor cur = cats.find(new BasicDBObject(), fields).skip(start).limit(limit);
+
+        BasicDBObject query = new BasicDBObject();
+        query.put("index", new BasicDBObject("$gt",start));
+
+        DBCursor cur = cats.find(query, fields).limit(limit);//.skip(start).limit(limit);
 		int count =0;
         while(cur.hasNext()) {
             DBObject next = (DBObject)cur.next();
