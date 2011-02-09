@@ -1,0 +1,92 @@
+{%extends "base.html"%}
+{% block body %}
+    {% if questions %}
+    <style>
+      #flipper{ display:none; background-color: #ddd; border:1px solid black;border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px;clear:both; position:absolute: bottom:0px; padding:30px;}
+      #qcontainer{min-height:150px; padding-top:30px;}
+      .navbuttons{border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; border: 1px solid #e1e6b5;}
+      #newcat{border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; border: 1px solid #black; background-color: #ccc;}
+    </style>
+    <script type="text/javascript">
+        var showingAnswer = false;
+        var questions = [
+        {% for q in questions %}
+            { question:{{q.question|tojson|safe}}, answer:{{q.answer|tojson|safe}}} {% if loop.last %} {% else %},{%endif%}
+        {% endfor %}
+        ];
+
+        function flip(){
+            $('#question').toggle();
+            $('#answer').toggle();
+            showingAnswer = !showingAnswer;
+            $('#flipper').text(showingAnswer ? "Show Question" : "Show Answer");
+            if( showingAnswer ){
+                if( curQuestionNum > 0 ) $('#prev').show(); 
+                else $('#prev').hide()
+                if( curQuestionNum < questions.length-1 ) $('#next').show(); 
+                else $('#next').hide()
+            }else{
+                $('#prev').hide()
+                $('#next').hide()
+            }
+        }
+
+        $(document).ready(
+            function(){
+                $('#flipper').click( flip )
+                $('#catslink').hide()
+                window.scrollTo(0,1);
+            }
+        )
+
+        function showcats(){
+            $('#qcontainer').hide();
+            $('#qs').show();
+            $('#catslink').hide();
+            $('#flipper').hide()
+        }
+
+        function nextq(){ doQuestion(curQuestionNum+1); }
+
+        function prevq(){ doQuestion(curQuestionNum-1); }
+
+        function doQuestion(num){
+            $('#flipper').text('Show Answer');
+            showingAnswer = false
+            curQuestionNum = num;
+            $('#questions').hide();
+            $('#qcontainer').show();
+            var q = questions[num]
+            $('#qs').hide();
+            $('#next').hide()
+            $('#prev').hide()
+            $('#question').text(q.question).show();
+            $('#answer').text(q.answer).hide()
+            $('#catslink').show();
+            $('#flipper').show().focus();
+        }
+    </script>
+
+    <div id="header">
+        <span id="topcenter">{{categoryName}}</span>
+        <a href="/" id="newcat"><div id="topright">new<br/> category... <img src="/static/reload.png"/></div></a>
+    </div>
+    
+    <div id="content">
+        <div id="questions">
+          {% for q in questions %}
+          <a href="javascript:doQuestion({{loop.index}})"><div class="question">{{q.value}}</div></a>
+          {% endfor %}
+        </div>
+        <div id="qcontainer" style="display:none">
+          <div id="question"></div>
+          <div id="answer"></div>
+          <a style="display:none" id="prev" href="javascript:prevq()"><div class="navbuttons" style="float:left">&larr; Previous<br/>Question</div></a>
+          <a style="display:none" id="next" href="javascript:nextq()"><div class="navbuttons" style="float:right">Next<br/>Question&rarr;</div></a>
+        </div>
+        <div style="width:100%; margin-left:auto; margin-right:auto;">
+        <div id="flipper">Show Answer</div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+{% block body %}
+    <script type="text/javascript" src="/static/jquery.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){ window.scrollTo(0,1); } )
+    </script>
+    <div id="header">
+        <span id="topcenter">Choose a Category</span>
+        <a href="/"><div id="topright">more categories&hellip;</div></a>
+    </div>
+
+    <div id="content">
+    {% if categories %}
+        <div id="categories">
+          {% for c in categories %}
+            <a href="{{url_for("category",category_id=c._id)}}"><div class="category">{{c.name|safe}}</div></a>
+          {% endfor %}
+        </div>
+    {% endif %}
+    </div>
+    <div id="footer">
+        <a href="/about/">about</a>
+    </div>
+{% endblock %}

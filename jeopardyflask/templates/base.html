@@ -1,0 +1,51 @@
+<html> 
+    <head> 
+        <title>jparty</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+        <meta name="viewport" content="width=device-width, user-scalable=no" /> 
+        <script type="text/javascript" src="/static/jquery.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function(){ window.scrollTo(0,1); } )
+        </script>
+        <style type="text/css">
+            body{margin:0px; font-family:Trebuchet MS}
+            #header{ text-align:center;height: 30px;padding:8px; }
+            #topleft{ float:left; }
+            #topright{ float:right; }
+            #content{ clear: both; text-align:center; top:50px;  }
+            #topcenter{ font-weight:bold; }
+            a:link{ text-decoration:none; color:black; font-weight:bold}
+            a:hover{ text-decoration:none; font-weight:bold; color:black; }
+            a:visited{ text-decoration:none; font-weight:none; color:black; }
+            .question, .category{ border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; border: 1px solid #91c926; margin:10px; padding:10px; }
+            .question, .category{
+                background-color: #91c926;
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#91c926;', endColorstr='#D3DE8C'); /* for IE */
+                background: -webkit-gradient(linear, left top, left bottom, from(#e1e6b5), to(#D3DE8C)); /* for webkit browsers */
+                background: -moz-linear-gradient(top,  #e1e6b5,  #D3DE8C); /* for firefox 3.6+ */
+            }
+            .navButtons{
+                padding: 15px;
+                background-color: #8fa68e;
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f2c0', endColorstr='#9fa68e'); /* for IE */
+                background: -webkit-gradient(linear, left top, left bottom, from(#f1f2c0), to(#9fa68e)); /* for webkit browsers */
+                background: -moz-linear-gradient(top,  #f1f2c0,  #9fa68E); /* for firefox 3.6+ */
+            }
+        </style>
+        {% block head %}
+        {% endblock %}
+    </head> 
+    <body> 
+        {% block body %}
+        {% endblock %}
+        <!--
+        <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
+        !-->
+        <script type="text/javascript">
+            try {
+                //reinvigorate.track("57gq1-xamfb26081");
+            } catch(err) {}
+        </script>
+    </body> 
+</html> 
+</html>
