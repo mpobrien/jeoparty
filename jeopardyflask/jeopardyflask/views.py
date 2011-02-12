@@ -10,8 +10,6 @@ import sys
 from models import connection, getrandomcategories, getcategorybyid
 
 PAGESIZE = 10;
-sys.stderr.write("YOOOOOOOOO\n");
-
 
 @app.route("/")
 def hello():

@@ -29,9 +29,7 @@ class Category(Document):#{{{
 # register the User document with our current connection
 connection.register([Category])
 
-sys.stderr.write("trying to find highest index now");
 HIGHESTINDEX = int(connection['jparty'].categories.find().sort("index", direction=pymongo.DESCENDING).limit(1)[0]['index'])
-sys.stderr.write("got");
 
 def getrandomcategories():
     index = randint(0, HIGHESTINDEX-10)
