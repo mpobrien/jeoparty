@@ -1,14 +1,17 @@
+from jeopardyflask import app
 from flask import Flask
 from flask import render_template, request, jsonify, g, redirect, url_for,session
-from models import connection, HIGHESTINDEX
+from jeopardyflask.models import connection, HIGHESTINDEX
 from random import randint
 from pymongo.objectid import ObjectId
 import re
 from random import randint
+import sys
 from models import connection, getrandomcategories, getcategorybyid
-app = Flask(__name__)
 
 PAGESIZE = 10;
+sys.stderr.write("YOOOOOOOOO\n");
+
 
 @app.route("/")
 def hello():

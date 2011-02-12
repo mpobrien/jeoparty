@@ -29,15 +29,17 @@ public class HomeController extends Controller{
     @Override
     public WebResponse get(){
         Date now = new Date();
-        log.info(now.toString() + " accessed / from " + visit.getRequest().getRemoteAddr());
+        log.info(now.toString() + " accessed / from " + visit.getRequest().getRemoteAddr() +
+                 " UserAgent: "+ visit.getRequest().getHeader("User-Agent")  +
+                 " Referer: " + visit.getRequest().getHeader("Referer")
+                 );
 		List<Category> categories = getRandomCategorySet();
 		HashMap context = new HashMap();
 		context.put("categories", categories);
 		if( visit.getStringSafe("json").equals("1") ){
 			return responses.json(categories);
 		}else{
-            String prefix = mobileDetect.isMobile() ? "mobile/" : "";
-            log.error(prefix);
+            String prefix = false ? "mobile/" : "";
 			return responses.render(prefix + "index.html", context);
 		}
     }

@@ -1,18 +1,17 @@
+from jeopardyflask import app
+import sys
 from flask import Flask
 from random import randint
 import pymongo
 from pymongo.objectid import ObjectId
 from mongokit import Connection, Document
 from werkzeug import check_password_hash, generate_password_hash
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
+#MONGODB_HOST = 'localhost'
+#MONGODB_PORT = 27017
 
 # create the little application object
-app = Flask(__name__)
-app.config.from_object(__name__)
-
 # connect to the database
-connection = Connection(app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
+connection = Connection('localhost', 27017)
 
 class Category(Document):#{{{
     structure = { 'name':unicode,
@@ -30,11 +29,12 @@ class Category(Document):#{{{
 # register the User document with our current connection
 connection.register([Category])
 
+sys.stderr.write("trying to find highest index now");
 HIGHESTINDEX = int(connection['jparty'].categories.find().sort("index", direction=pymongo.DESCENDING).limit(1)[0]['index'])
+sys.stderr.write("got");
 
 def getrandomcategories():
     index = randint(0, HIGHESTINDEX-10)
-    print index
     categories = connection['jparty'].categories;
     cats = categories.Category.find({"index":{"$gt":index}}).limit(10)
     return cats

@@ -27,6 +27,11 @@ public class CategoryController extends Controller{
 
     public WebResponse get(){
         this.categoryId = this.args.get(0);
+        Date now = new Date();
+        log.info(now.toString() + " accessed / from " + visit.getRequest().getRemoteAddr() +
+                 " UserAgent: "+ visit.getRequest().getHeader("User-Agent")  +
+                 " Referer: " + visit.getRequest().getHeader("Referer")
+                 );
         Category category = jpd.getCategoryById(this.categoryId);
         if( category == null ){
             return new StringWebResponse("Not found. :(");
