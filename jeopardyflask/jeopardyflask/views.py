@@ -23,6 +23,10 @@ def category(category_id):
     cat = getcategorybyid(category_id)
     return render_template("qs2.html", categoryName=cat['name'], questions=cat['questions'])
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host='0.0.0.0')

@@ -4,8 +4,12 @@
     <script type="text/javascript">
       $(document).ready(function(){ window.scrollTo(0,1); } )
     </script>
+    <style>
+        body{ margin:0px; }
+        #footer{ float:left; }
+    </style>
     <div id="header">
-        <span id="topcenter">Choose a Category</span>
+        <div id="topleft">Pick a Category!</div>
         <a href="/"><div id="topright">more categories&hellip;</div></a>
     </div>
 
@@ -19,6 +23,7 @@
     {% endif %}
     </div>
     <div id="footer">
-        <a href="/about/">about</a>
+        <a href="/about">about</a>
     </div>
+        
 {% endblock %}

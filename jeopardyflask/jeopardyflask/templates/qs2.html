@@ -2,9 +2,23 @@
 {% block body %}
     {% if questions %}
     <style>
-      #flipper{ display:none; background-color: #ddd; border:1px solid black;border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px;clear:both; position:absolute: bottom:0px; padding:30px;}
+      #flipper{ display:none; background-color: #ddd; border:1px solid black;border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px;clear:both; position:absolute: bottom:0px; padding:30px; margin-left:5px; margin-right:5px;
+background-image: -moz-linear-gradient(top, 
+                            #dddddd, 
+                            #888888);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+        color-stop(0,       #dddddd),
+        color-stop(1,       #888888));
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#888888')";}
       #qcontainer{min-height:150px; padding-top:30px;}
-      .navbuttons{border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; border: 1px solid #e1e6b5;}
+     .navbuttons{
+                   border: 1px solid #91c926;
+                    border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; 
+                background-color: #91c926;
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#91c926;', endColorstr='#D3DE8C'); /* for IE */
+                background: -webkit-gradient(linear, left top, left bottom, from(#e1e6b5), to(#D3DE8C)); /* for webkit browsers */
+                background: -moz-linear-gradient(top,  #e1e6b5,  #D3DE8C); /* for firefox 3.6+ */
+}
       #newcat{border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px; border: 1px solid #black; background-color: #ccc;}
     </style>
     <script type="text/javascript">
@@ -19,7 +33,7 @@
             $('#question').toggle();
             $('#answer').toggle();
             showingAnswer = !showingAnswer;
-            $('#flipper').text(showingAnswer ? "Show Question" : "Show Answer");
+            $('#flipper').text(showingAnswer ? "Show Question..." : "Show Answer...");
             if( showingAnswer ){
                 if( curQuestionNum > 0 ) $('#prev').show(); 
                 else $('#prev').hide()
@@ -51,7 +65,7 @@
         function prevq(){ doQuestion(curQuestionNum-1); }
 
         function doQuestion(num){
-            $('#flipper').text('Show Answer');
+            $('#flipper').text('Show Answer...');
             showingAnswer = false
             curQuestionNum = num;
             $('#questions').hide();
@@ -68,8 +82,8 @@
     </script>
 
     <div id="header">
-        <span id="topcenter">{{categoryName}}</span>
-        <a href="/" id="newcat"><div id="topright">new<br/> category... <img src="/static/reload.png"/></div></a>
+        <span id="topcenter">{{categoryName|safe}}</span>
+        <a href="/" id="newcat"><div id="topright">more categories...<!--<img src="/static/reload.png"/>--!></div></a>
     </div>
     
     <div id="content">
