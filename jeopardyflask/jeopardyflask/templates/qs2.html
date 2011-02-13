@@ -2,7 +2,7 @@
 {% block body %}
     {% if questions %}
     <style>
-      #flipper{ display:none; background-color: #ddd; border:1px solid black;border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px;clear:both; position:absolute: bottom:0px; padding:30px; margin-left:5px; margin-right:5px;
+      #flipper{ display:none; background-color: #ddd; border:1px solid black;border-radius: 5px; -moz-border-radius: 5px; -webkit-radius: 5px;clear:both; position:absolute: bottom:0px; padding:30px; margin-left:5px; margin-right:5px; cursor:pointer;
 background-image: -moz-linear-gradient(top, 
                             #dddddd, 
                             #888888);
@@ -89,7 +89,7 @@ background-image: -moz-linear-gradient(top,
     <div id="content">
         <div id="questions">
           {% for q in questions %}
-          <a href="javascript:doQuestion({{loop.index}})"><div class="question">{{q.value}}</div></a>
+          <a href="javascript:doQuestion({{loop.index-1}})"><div class="question">{{q.value}}</div></a>
           {% endfor %}
         </div>
         <div id="qcontainer" style="display:none">
