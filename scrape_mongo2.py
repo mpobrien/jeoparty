@@ -29,19 +29,17 @@ def substitute_entity(match):
         else:
             return match.group()
 
-def process(soupobjs, game_id):#{{{
+def process(soupobjs):#{{{
     ts = soupobjs.html.findAll('table',attrs={'class':'round'}, text=False)
     categorylist = []
     for t in ts:
         for c in t.contents:
             if isinstance(c,NavigableString): continue
-            #print type(c) == type(NavigableString)
             categories = c.findAll('td',attrs={'class':'category_name'})
             if not categories: continue
             for cat in categories:
-                #catname = BeautifulStoneSoup(cat.string, BeautifulSoup.HTML_ENTITIES).contents[0]
                 catname = u''.join([q.string for q in cat.findAll(text=True)])
-                categorylist.append( {"name":catname, "gameId":game_id, "questions":[] } ) #Category(catname, game_id) )
+                categorylist.append( {"name":catname, "questions":[] } ) #Category(catname, game_id) )
     for round in [(0,'J'),(1,'DJ')]:
         for i in xrange(1,7):
             for j in xrange(1,6):
@@ -59,7 +57,8 @@ def process(soupobjs, game_id):#{{{
                 if links:
                     for l in links:
                         urls.append( l['href'] )
-                if urls: print urls
+                #if urls:
+                    #print urls
                 dollarvalue = int( re.sub(dollaramount, '', value).strip() )
                 questiontxt = questiontxt.replace("\\'","'").replace('\\"','"')
                 answertxt = answertxt.replace("\\'","'").replace('\\"','"')
@@ -67,20 +66,40 @@ def process(soupobjs, game_id):#{{{
                 if urls: newQuestion['urls'] = urls
                 if value.find('DD') >= 0: newQuestion['isDouble'] = True;
                 categorylist[i-1 + 6 * round[0]]['questions'].append(newQuestion)
-                print questiontxt, answertxt
+                #print questiontxt, answertxt
     return categorylist#}}}
 
 def storecategories(cats):
     for cat in cats:
         db.categories.insert(cat)
 
+
+def load_dir(directory):
+    for f in os.listdir(directory):
+        with open(os.path.join(directory, f), 'r') as tf:
+            try:
+                game_id = f.split('_')[1].split('.')[0]
+                contents = tf.read()
+                soup = BeautifulSoup(contents)
+                qs = process(soup)
+                for q in qs:
+                    q['game_id'] = game_id
+                yield qs
+            except Exception, e:
+                print e
+                continue
+
+
 def main(argv):
-    tf = open(argv[0], 'r')
-    contents = tf.read()
-    soup = BeautifulSoup(contents)
-    game_id = int( argv[1] )
-    qs = process(soup, game_id)
-    storecategories(qs)
+    for x in load_dir(argv[0]):
+        db.categories.insert(x)
+        #print len(x)
+    #tf = open(argv[0], 'r')
+    #contents = tf.read()
+    #soup = BeautifulSoup(contents)
+    #game_id = int( argv[1] )
+    #qs = process(soup, game_id)
+    #storecategories(qs)
     #print qs
 
 if __name__ =='__main__':main(sys.argv[1:])
